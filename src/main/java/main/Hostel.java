@@ -5,83 +5,119 @@ import static org.junit.Assert.assertEquals;
 import java.io.*;
 import java.util.*;
 
-public class Hostel{
-	   public static void writedata()throws IOException {
+public class Hostel
+{
+	   public static void writedata()throws IOException 
+	   {
 		   BufferedWriter out = null;
-           try{
+           try
+           {
             out = new BufferedWriter(new FileWriter("allotedhostel.txt"));
-            try{
+            try
+            {
 	       		BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
 	                   
 	            String line = null;
-	           while ((line = br.readLine()) != null) {
+	           while ((line = br.readLine()) != null) 
+	           {
 	               String[] splited = line.split("\\s+");
 	               	 out.write(splited[0]);
 	                 out.newLine();
-	               }
-	           }catch(Exception e){
-	               System.out.println(e);
 	           }
-           }catch(Exception e){
+	        }catch(Exception e)
+            {
+	        	System.out.println(e);
+	        }
+           }catch(Exception e)
+           {
                //print
                System.out.println(e);
                
-           }finally{
+           }finally
+           {
                out.close();
            }
 	   }
-	   public static boolean readData(String name) {
-		   try{
-	             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
-	               String line = null;
-	            
+	   public static boolean readData(String name) 
+	   {
+		   Boolean chk = true;
+		   try
+		   {
+             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
+             String line = null;
+            
+               //write your code here !!!
+               while ((line = br.readLine()) != null) 
+               {
+	               String[] splited = line.split("\\s+");
+	               String checkName = splited[0];
 	               //write your code here !!!
-	               while ((line = br.readLine()) != null) {
-		               String[] splited = line.split("\\s+");
-		               String checkName = splited[0];
-		               //write your code here !!!
-//		               compare check name with name and return true if present and false if not
+	               //compare check name with name and return true if present and false if not
+	               if(checkName.equals(name))
+	               {
+	            	   chk = true;
+	            	   break;
 	               }
-	               
-	               
-	            }catch(Exception e){
-	                System.out.println(e);
-	            }
-			return true;
+	               else
+	            	   chk = false;
+               }
+           }catch(Exception e)
+		   {
+                System.out.println(e);
+           }
+		return chk;
 	   }
-       public static void allotHostel(){
+	   
+       public static void allotHostel()
+       {
     	   //write your code here!!!
+    	   try
+    	   {
+    		   writedata();
+    	   }
+    	   catch(IOException e)
+    	   {
+    		   System.out.println(e);
+    	   }
     	   
        }
 
-       public static boolean verifyStudent(int regNo){
-         try{
-             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
-               String line = null;
-            while ((line = br.readLine()) != null) {
+       public static boolean verifyStudent(int regNo)
+       {
+         try
+         {
+            BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
+            String line = null;
+            while ((line = br.readLine()) != null) 
+            {
                 String[] splited = line.split("\\s+");
 
                 String reg = Integer.toString(regNo);
-                    if(splited[1].equals(reg) ){
-                        return false;
-                    }
+                if(splited[1].equals(reg))
+                {
+                	return false;
                 }
-            }catch(Exception e){
+            }
+          }catch(Exception e)
+            {
                 System.out.println(e);
             }
             return true;
         }
            
-       public static boolean verifyName(String name){
-    	   boolean chk = true;
+       public static boolean verifyName(String name)
+       {
+    	   boolean chk = false;
     	   
     	   //write your code here
+    	   chk = readData(name);
     	   
     	   return chk;
         }
         
 
-		static String typeName(){
+		static String typeName()
+		{
             Scanner sc = new Scanner(System.in);
             String name;
             System.out.println("Enter the student name:(Type exit to exit) ");
@@ -90,18 +126,15 @@ public class Hostel{
         }
 
 
-    public static void main(String args[])throws IOException {
-
-
-
+    public static void main(String args[])throws IOException 
+    {
         BufferedWriter out = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Hostel Management \n Enter the record of students! \n Type exit to end!");
         String name  = typeName();
         
-        while(!name.equals("exit")){
-
-            
+        while(!name.equals("exit"))
+        {
             System.out.println("Enter the Reg No of the student");
             int regNo = sc.nextInt();
             sc.nextLine();
